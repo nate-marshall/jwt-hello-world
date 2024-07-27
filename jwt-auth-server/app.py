@@ -4,14 +4,14 @@ import datetime
 import os
 import logging
 from dotenv import load_dotenv
-import jwt  # Import PyJWT
+import jwt
 
 # Load environment variables from .env file
 load_dotenv()
 
 # Initialize Flask app
 app = Flask(__name__)
-CORS(app)  # Enable CORS
+CORS(app)
 
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 JWT_USER = os.getenv('JWT_USER')
@@ -37,7 +37,7 @@ def login():
     if auth_data['username'] == JWT_USER and auth_data['password'] == JWT_PASS:
         token = jwt.encode({
             'user': auth_data['username'],
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=JWT_EXPIRATION_MINUTES)
+            'exp': datetime.now(datetime.timezone.utc) + datetime.timedelta(minutes=int(os.getenv('JWT_EXPIRATION_MINUTES')))
         }, app.config['SECRET_KEY'], algorithm="HS256")
         
         logger.info(f"Generated token for user: {auth_data['username']}")
