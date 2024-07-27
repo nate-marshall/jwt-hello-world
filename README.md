@@ -29,14 +29,16 @@ jwt-auth-server/
 ## Environment Variables
 Create a `.env` file in the root directory with the following variables:
 
+### `.env`
 ```
+CLIENT_PORT=8000
+SERVER_PORT=5000
 SECRET_KEY=your_secret_key
 JWT_USER=test_user
 JWT_PASS=test_password
 LOG_LEVEL=DEBUG
 JWT_EXPIRATION_MINUTES=30
 FLASK_DEBUG=True
-PORT=5000
 ```
 
 ## Setup and Running the Project
@@ -50,7 +52,7 @@ cd jwt-hello-world
 ### Step 2: Build and Run the Docker Containers
 Make sure you're in the root directory where `docker-compose.yml` is located.
 ```bash
-docker-compose up --build
+docker-compose build --no-cache && docker-compose up
 ```
 
 ### Step 3: Access the Applications
