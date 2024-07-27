@@ -1,0 +1,31 @@
+services:
+  jwt-server:
+    build: ./jwt-auth-server
+    ports:
+      - "5000:5000"
+    environment:
+      SECRET_KEY: ${SECRET_KEY}
+      JWT_USER: ${JWT_USER}
+      JWT_PASS: ${JWT_PASS}
+      LOG_LEVEL: ${LOG_LEVEL}
+      JWT_EXPIRATION_MINUTES: ${JWT_EXPIRATION_MINUTES}
+      FLASK_DEBUG: ${FLASK_DEBUG}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  jwt-client:
+    build: ./jwt-auth-client
+    ports:
+      - "8000:8000"
+    environment:
+      AUTH_SERVER_URL: http://jwt-server:5000
+    depends_on:
+      - jwt-server
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000"]
+      interval: 30s
+      timeout: 10s
+      retries: 5

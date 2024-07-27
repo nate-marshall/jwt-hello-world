@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JWT Client App</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .message { color: red; }
+    </style>
+    <script>
+        // Set the base URL from an environment variable
+        const BASE_URL = '{{BASE_URL}}';
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>JWT Client App</h1>
+        <div id="login-section">
+            <h2>Login</h2>
+            <input type="text" id="username" placeholder="Username"><br><br>
+            <input type="password" id="password" placeholder="Password"><br><br>
+            <button onclick="login()">Login</button>
+            <p id="login-message" class="message"></p>
+        </div>
+        <div id="protected-section" style="display:none;">
+            <h2>Protected Resource</h2>
+            <button onclick="getProtectedResource()">Get Protected Resource</button>
+            <p id="protected-message"></p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
